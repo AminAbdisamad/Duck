@@ -1,0 +1,54 @@
+{% extends 'layout.html'%}
+<!-- Adds layout page to the top of this file -->
+{% block content %}
+
+<!-- Model -->
+<div id="model" class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <form action="" method="POST">
+      {{form.hidden_tag()}}
+      <article class="media">
+        <figure class="media-left">
+          {%if current_user.is_authenticated%}
+          <p class="image is-64x64">
+            <img
+              class="is-rounded"
+              src="{{url_for('static',filename='profile_pictures/'+current_user.image_file)}}"
+            />
+          </p>
+          {%endif%}
+        </figure>
+        <div class="media-content">
+          <div class="field">
+            {%if form.post.errors%} {%for error in form.post.errors %}
+            {{form.post(class="textarea is-danger")}}
+            <div class="has-text-weight-light has-text-danger">
+              {{error}}
+            </div>
+            {%endfor%} {%else%}
+            <p class="control">
+              {{form.post(class="textarea")}}
+            </p>
+            {%endif%}
+          </div>
+          <nav class="level">
+            <div class="level-right">
+              <div class="level-item">
+                {{form.submit(class="button is-primary")}}
+              </div>
+            </div>
+          </nav>
+        </div>
+      </article>
+    </form>
+  </div>
+  <button id="close" class="modal-close is-large" aria-label="close"></button>
+</div>
+<!-- Read JS Files -->
+<script
+  type="text/javascript"
+  src="{{ url_for('static', filename='js/main.js')}}"
+></script>
+
+{%endblock%}

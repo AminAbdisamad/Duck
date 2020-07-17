@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Welcome to Duck!</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css"
+    />
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
+    ></script>
+    <link rel="stylesheet" href="{{url_for('static',filename='main.css')}}" />
+  </head>
+  <body>
+    <section class="header">
+      <!-- Hero head: will stick at the top -->
+      <div class="head">
+        <header class="navbar">
+          <div class="container">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="{{url_for('index')}}">
+                <img
+                  src="{{url_for('static',filename='logo.png')}}"
+                  alt="Logo"
+                />
+                <h1>Duck App</h1>
+              </a>
+              <span class="navbar-burger burger" data-target="navbarMenuHeroC">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </div>
+            <div id="navbarMenuHeroC" class="navbar-menu">
+              <div class="navbar-end">
+                <a class="navbar-item is-active" href="{{ url_for('index')}}">
+                  Home
+                </a>
+                <a class="navbar-item" href="{{url_for('about')}}">
+                  About
+                </a>
+                {% if current_user.is_authenticated%}
+                <a class="navbar-item" href="{{url_for('account')}}">
+                  Account
+                </a>
+                <a class="navbar-item" href="{{url_for('logout')}}">
+                  Logout
+                </a>
+                {%else %}
+                <a class="navbar-item" href="{{url_for('register')}}">
+                  Register
+                </a>
+                <span class="navbar-item">
+                  <a
+                    class="button is-success is-inverted"
+                    href="{{url_for('login')}}"
+                  >
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Login</span>
+                  </a>
+                </span>
+                {%endif%}
+              </div>
+            </div>
+          </div>
+        </header>
+      </div>
+    </section>
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="message {{ category }}">
+        <div class="message-body">
+          {{ message }}
+        </div>
+      </div>
+      {% endfor %} {% endif %} {% endwith %} {%block content%}
+      <!-- Will display content here-->
+      {%endblock content%}
+    </div>
+  </body>
+</html>

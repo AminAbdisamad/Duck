@@ -1,0 +1,123 @@
+{% extends 'layout.html' %} {% block content %}
+
+<section class="section">
+  <div class="columns">
+    <div class="column is-three-fifths">
+      <!-- Start Post Form here -->
+      {% if current_user.is_authenticated%}
+      <form action="" method="POST">
+        {{form.hidden_tag()}}
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img
+                class="is-rounded"
+                src="{{url_for('static',filename='profile_pictures/'+current_user.image_file)}}"
+              />
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="field">
+              {%if form.post.errors%} {%for error in form.post.errors %}
+              {{form.post(class="textarea is-danger")}}
+              <div class="has-text-weight-light has-text-danger">
+                {{error}}
+              </div>
+              {%endfor%} {%else%}
+              <p class="control">
+                {{form.post(class="textarea")}}
+              </p>
+              {%endif%}
+            </div>
+            <nav class="level">
+              <div class="level-right">
+                <div class="level-item">
+                  {{form.submit(class="button is-primary")}}
+                </div>
+              </div>
+            </nav>
+          </div>
+        </article>
+      </form>
+      {%endif%}
+      <br />
+      <!-- End post form here -->
+      {%for post in posts %}
+      <div class="box">
+        <article class="media">
+          <div class="media-left">
+            <figure class="image is-64x64">
+              <img
+                class="is-rounded"
+                src="{{url_for('static',filename='profile_pictures/'+post.author.image_file)}}"
+              />
+            </figure>
+          </div>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong
+                  >{{post.author.name if post.author.name else
+                  post.author.username}}</strong
+                >
+                <small>@{{post.author.username}}</small>
+                <small>{{post.datePosted}}</small>
+                <br />
+                {{post.content}}
+              </p>
+            </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <a class="level-item" aria-label="reply">
+                  <span class="icon is-small">
+                    <i class="fas fa-reply" aria-hidden="true"></i>
+                  </span>
+                </a>
+                <a class="level-item" aria-label="retweet">
+                  <span class="icon is-small">
+                    <i class="fas fa-retweet" aria-hidden="true"></i>
+                  </span>
+                </a>
+                <a class="level-item" aria-label="like">
+                  <span class="icon is-small">
+                    <i class="fas fa-heart" aria-hidden="true"></i>
+                  </span>
+                </a>
+              </div>
+              <!-- Edit and delete starts here -->
+              {%if current_user.is_authenticated and current_user ==
+              post.author%}
+              <div class="level-right">
+                <a
+                  class="level-item"
+                  aria-label="delete"
+                  href="{{url_for('updatePost',post_id=post._id)}}"
+                >
+                  <span class="icon is-small has-text-danger">
+                    <i class="fas fa-trash" aria-hidden="true"></i>
+                  </span>
+                </a>
+                <a
+                  class="level-item"
+                  aria-label="edit"
+                  id="edit"
+                  href="{{url_for('updatePost',post_id=post._id)}}"
+                >
+                  <span class="icon is-small">
+                    <i class="fas fa-pen" aria-hidden="true"></i>
+                  </span>
+                </a>
+              </div>
+              {%endif%}
+              <!-- Edit and delete ends here -->
+            </nav>
+          </div>
+        </article>
+      </div>
+      <br />
+      {% endfor%}
+    </div>
+  </div>
+</section>
+
+{%endblock content%}

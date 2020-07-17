@@ -1,0 +1,154 @@
+{% extends 'layout.html'%}
+<!-- Adds layout page to the top of this file -->
+{% block content %}
+<div class="columns">
+  <div class="column is-three-fifths">
+    <div class="card">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48 is-rounded">
+              <img src="{{userProfile}}" />
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4">{{current_user.name if current_user.name else current_user.username}}</p>
+            <p class="subtitle is-6">@{{current_user.username}}</p>
+            <p class="subtitle is-6">{{current_user.bio}}</p>
+          </div>
+        </div>
+
+        <!-- <div class="content">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
+          iaculis mauris. <a>@bulmaio</a>. <a href="#">#css</a>
+          <a href="#">#responsive</a>
+          <br />
+          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        </div> -->
+        <form method="POST" action="" enctype="multipart/form-data">
+            <!--Prevents against CRF attacks -->
+            {{form.hidden_tag()}}
+            <div class="field">
+              <p class="control has-icons-left has-icons-right">
+                {{form.username.label(class="label")}} 
+                {%if form.username.errors%}
+                {%for error in form.username.errors %}
+                  {{form.username(class="input is-danger")}} 
+                  <div class="has-text-weight-light has-text-danger">
+                {{error}}
+                </div>
+                {%endfor%} 
+                {%else%}
+                {{form.username(class="input")}}
+                {%endif%}
+              </p>
+            </div>
+            <div class="field">
+              <p class="control has-icons-left has-icons-right">
+                {{form.email.label(class="label")}}
+                {%if form.email.errors%}
+                {%for error in form.email.errors %}
+                  {{form.email(class="input is-danger")}} 
+                  <div class="has-text-weight-light has-text-danger">
+                {{error}}
+                </div>
+                {%endfor%} 
+                {%else%}
+                {{form.email(class="input")}}
+                {%endif%}
+          
+              </p>
+            </div>
+            <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                  {{form.name.label(class="label")}} 
+                  {%if form.name.errors%}
+                  {%for error in form.name.errors %}
+                    {{form.name(class="input is-danger")}} 
+                    <div class="has-text-weight-light has-text-danger">
+                  {{error}}
+                  </div>
+                  {%endfor%} 
+                  {%else%}
+                  {{form.name(class="input")}}
+                  {%endif%}
+                </p>
+            </div>
+            <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                  {{form.bio.label(class="label")}} 
+                  {%if form.bio.errors%}
+                  {%for error in form.bio.errors %}
+                    {{form.bio(class="input is-danger")}} 
+                    <div class="has-text-weight-light has-text-danger">
+                  {{error}}
+                  </div>
+                  {%endfor%} 
+                  {%else%}
+                  {{form.bio(class="input")}}
+                  {%endif%}
+                </p>
+            </div>
+            <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                  {{form.location.label(class="label")}} 
+                  {%if form.location.errors%}
+                  {%for error in form.location.errors %}
+                    {{form.location(class="input is-danger")}} 
+                    <div class="has-text-weight-light has-text-danger">
+                  {{error}}
+                  </div>
+                  {%endfor%} 
+                  {%else%}
+                  {{form.location(class="input")}}
+                  {%endif%}
+                </p>
+            </div>
+          
+
+            <!-- File Input -->
+            <div class="file has-name is-fullwidth">
+                <label class="file-label">
+                  <!-- <input class="file-input" type="file" name="resume"> -->
+                  {{form.picture(class="file-input")}}
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    {{form.picture.label(class="file-label")}} 
+                  </span>
+                  <span class="file-name">
+                
+                  </span>
+                  {%if form.picture.errors%}
+                {%for error in form.picture.errors %}
+                    <span class="is-danger">{{error}}</span>
+                  {%endfor%} 
+                  {%else%}
+                    {{form.picture(class="file-input")}}
+                  {% endif %}
+                </label>
+            </div></br>
+            <!-- End File Input -->
+          
+          
+            <div class="field">
+              <p class="control has-icons-left">
+                {{form.submit(class="button is-primary")}}
+              </p>
+            </div>
+
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+     
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+
+{% endblock content %}

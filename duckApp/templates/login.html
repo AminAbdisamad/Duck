@@ -1,0 +1,50 @@
+{% extends 'layout.html'%}
+<!-- Adds layout page to the top of this file -->
+{% block content %}
+<h1 class="title">Login</h1>
+<form method="POST" action="">
+  <!--Prevents against CRF attacks -->
+  {{login.hidden_tag()}}
+  <div class="field">
+    <p class="control has-icons-left has-icons-right">
+      {{login.email.label(class="label")}} 
+      {%if login.email.errors%}
+      {%for error in login.email.errors %}
+        {{login.email(class="input is-danger")}} 
+        <div class="has-text-weight-light has-text-danger">
+        {{error}}
+      </div>
+      {%endfor%} 
+      {%else%}
+      {{login.email(class="input")}}
+     
+      {%endif%}
+    </p>
+  </div>
+  <div class="field">
+    <p class="control has-icons-left">
+      {{login.password.label(class="label")}} 
+      {%if login.password.errors%}
+      {%for error in login.password.errors %}
+      {{login.password(class="input is-danger")}}
+     <div class="has-text-weight-light has-text-danger">
+      {{error}}
+      </div>
+      {%endfor%} 
+      {%else%}
+      {{login.password(class="input")}}
+      {%endif%}
+    </p>
+  </div>
+  <label class="">
+      {{login.remember(class="checkbox")}}
+      {{login.remember.label(class="checkbox")}}
+  </label>
+  <div class="field">
+    <p class="control has-icons-left">
+      {{login.submit(class="button is-primary")}}
+    </p>
+  </div>
+</form>
+
+{%endblock%}
