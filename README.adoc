@@ -1,12 +1,32 @@
 image:https://travis-ci.org/AminAbdisamad/flask-webapp.svg?branch=master["Build Status", link="https://travis-ci.org/AminAbdisamad/flask-webapp"]
 
-=== Flask App
+== Duck
 
-== Required Installations
+Social Network for developers 
+
+=== Installation Guide
+To Install project dependencies run this command
+[source,bash]
+----
+pipenv install
+----
+
+=== Database Migration
+[source,bash]
+----
+flask db init
+flask db migrate 
+flask db upgrade
+----
+
+=== Run Application 
 
 [source,bash]
 ----
-pipenv install flask
-pipenv install flask-wtf
-pipenv install email-validator
+flask run 
 ----
+or 
+----
+python app.py 
+----
+
