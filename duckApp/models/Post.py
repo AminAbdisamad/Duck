@@ -9,4 +9,4 @@ class Post(db.Model):
     userId = db.Column(db.Integer, db.ForeignKey("user._id"), nullable=False)
 
     def __repr__(self):
-        return f"Post ('{self.title}, {self.datePosted} , {self.content}')"
+        return f"Post ('{self.datePosted} , {self.content}')"

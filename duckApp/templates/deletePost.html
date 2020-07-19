@@ -1,0 +1,28 @@
+{% extends 'layout.html'%}
+<!-- Adds layout page to the top of this file -->
+{% block content %}
+
+<!-- Model -->
+<div class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Are you sure You want to delete?</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      {{post.content}}
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button">Cancel</button>
+      <a class="button is-danger">Delete</a>
+    </footer>
+  </div>
+</div>
+<!-- Read JS Files -->
+<script
+  type="text/javascript"
+  src="{{ url_for('static', filename='js/main.js')}}"
+></script>
+
+{%endblock%}

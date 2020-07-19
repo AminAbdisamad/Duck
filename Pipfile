@@ -18,7 +18,6 @@ mysql-connector-python = "*"
 
 [dev-packages]
 pylint = "*"
-black = "*"
 flake8 = "*"
 
 [requires]
