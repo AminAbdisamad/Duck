@@ -23,7 +23,7 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(username=username.data).first()
         if user:
             raise ValidationError(
-                "Username already exist. Please choose different one."
+                f"{user.username} already exist. Please choose different one."
             )
 
     # Custome validation
@@ -64,7 +64,7 @@ class UpdateAccountForm(FlaskForm):
         if username.data != current_user.username:
             user = User.query.filter_by(username=username.data).first()
             if user:
-                raise ValidationError("Username  waala haystaa fadlan midkale dooro")
+                raise ValidationError(f"{user.username}  waala haystaa fadlan midkale dooro")
 
     # Custome validation
     def validate_email(self, email):

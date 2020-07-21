@@ -50,7 +50,7 @@ def register():
         db.session.commit()
         flash(f"Your Account has been create and now you can loggin", "is-success")
         return redirect(url_for("login"))
-    return render_template("register.html", title="Register Form", register=register)
+    return render_template("user/register.html", title="Register Form", register=register)
 
 
 # Login Page
@@ -73,7 +73,7 @@ def login():
                 "Loggin Unsuccessfull, please check your email and password",
                 "is-danger",
             )
-    return render_template("login.html", title="Login Form", login=login)
+    return render_template("user/login.html", title="Login Form", login=login)
 
 
 @app.route("/logout")
@@ -90,7 +90,7 @@ def saveUserPicture(picture):
     _, fileExtension = os.path.splitext(picture.filename)
     # concatinate hexa and file Extension something like [dfjdshf234.png]
     pictureName = randomHex + fileExtension
-    picturePath = os.path.join(app.root_path, "static/profile_pictures", pictureName)
+    picturePath = os.path.join(app.root_path, "static/images/profile_pictures", pictureName)
     # Lets resize Image before Storing
     imageSize = (125, 125)
     image = Image.open(picture)
@@ -105,7 +105,7 @@ def saveUserPicture(picture):
 @login_required
 def account():
     imageFilter = url_for(
-        "static", filename="profile_pictures/" + current_user.image_file
+        "static", filename="images/profile_pictures/" + current_user.image_file
     )
     form = UpdateAccountForm()
     if form.validate_on_submit():
@@ -129,7 +129,7 @@ def account():
         form.location.data = current_user.location
         form.bio.data = current_user.bio
     return render_template(
-        "account.html",
+        "user/account.html",
         title="User Account",
         userProfile=imageFilter,
         form=form,
@@ -153,7 +153,7 @@ def updatePost(post_id):
     elif request.method == "GET":
         form.post.data = post.content
 
-    return render_template("updatePost.html", post=post, form=form)
+    return render_template("ducks/updatePost.html", post=post, form=form)
 
 
 # Delete Post
@@ -168,7 +168,7 @@ def deletePost(postId):
         db.session.commit()
         flash("Post Deleted Successfully","is-success")
         return redirect(url_for("index"))
-    return render_template("deletePost.html",post=post)
+    return render_template("ducks/deletePost.html",post=post)
  
 
 @app.route("/<string:username>", methods=["GET", "POST"])
@@ -185,4 +185,4 @@ def userProfile(username):
         db.session.commit()
         flash("Post Created Successfully", "is-success")
         return redirect(url_for("index"))
-    return render_template("userProfile.html", form=form, posts=posts,user=user)
+    return render_template("user/userProfile.html", form=form, posts=posts,user=user)

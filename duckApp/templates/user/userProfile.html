@@ -11,7 +11,7 @@
               <div class="circle-1"></div>
               <div class="circle-2"></div>
               <img
-                src="{{url_for('static',filename='profile_pictures/'+user.image_file)}}"
+                src="{{url_for('static',filename='images/profile_pictures/'+user.image_file)}}"
                 width="70"
                 height="70"
               />
@@ -51,7 +51,7 @@
             <p class="image is-64x64">
               <img
                 class="is-rounded"
-                src="{{url_for('static',filename='profile_pictures/'+current_user.image_file)}}"
+                src="{{url_for('static',filename='images/profile_pictures/'+current_user.image_file)}}"
               />
             </p>
           </figure>
@@ -88,7 +88,7 @@
             <figure class="image is-64x64">
               <img
                 class="is-rounded"
-                src="{{url_for('static',filename='profile_pictures/'+post.author.image_file)}}"
+                src="{{url_for('static',filename='images/profile_pictures/'+post.author.image_file)}}"
               />
             </figure>
           </div>
