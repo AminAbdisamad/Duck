@@ -13,8 +13,9 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route("/", methods=["GET", "POST"])
 def index():
     # Pagination
-    page = request.args.get('page',1,type=int)
-    posts = posts = Post.query.order_by(Post.datePosted.desc()).paginate(page=page,per_page=5)
+    page = request.args.get('page', 1, type=int)
+    posts = posts = Post.query.order_by(
+        Post.datePosted.desc()).paginate(page=page, per_page=5)
     form = CreatePost()
     if form.validate_on_submit():
         post = Post(content=form.post.data, author=current_user)
@@ -90,7 +91,8 @@ def saveUserPicture(picture):
     _, fileExtension = os.path.splitext(picture.filename)
     # concatinate hexa and file Extension something like [dfjdshf234.png]
     pictureName = randomHex + fileExtension
-    picturePath = os.path.join(app.root_path, "static/images/profile_pictures", pictureName)
+    picturePath = os.path.join(
+        app.root_path, "static/images/profile_pictures", pictureName)
     # Lets resize Image before Storing
     imageSize = (125, 125)
     image = Image.open(picture)
@@ -166,18 +168,19 @@ def deletePost(postId):
     if post:
         db.session.delete(post)
         db.session.commit()
-        flash("Post Deleted Successfully","is-success")
+        flash("Post Deleted Successfully", "is-success")
         return redirect(url_for("index"))
-    return render_template("ducks/deletePost.html",post=post)
- 
+    return render_template("ducks/deletePost.html", post=post)
+
 
 @app.route("/<string:username>", methods=["GET", "POST"])
 def userProfile(username):
     # Pagination
-    page = request.args.get('page',1,type=int)
-    # lets get the user 
+    page = request.args.get('page', 1, type=int)
+    # lets get the user
     user = User.query.filter_by(username=username).first_or_404()
-    posts = Post.query.filter_by(author=user).order_by(Post.datePosted.desc()).paginate(page=page,per_page=5)
+    posts = Post.query.filter_by(author=user).order_by(
+        Post.datePosted.desc()).paginate(page=page, per_page=5)
     form = CreatePost()
     if form.validate_on_submit():
         post = Post(content=form.post.data, author=current_user)
@@ -185,4 +188,4 @@ def userProfile(username):
         db.session.commit()
         flash("Post Created Successfully", "is-success")
         return redirect(url_for("index"))
-    return render_template("user/userProfile.html", form=form, posts=posts,user=user)
+    return render_template("user/userProfile.html", form=form, posts=posts, user=user)
