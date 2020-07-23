@@ -45,12 +45,13 @@
       {%for post in posts.items %}
       <div class="box">
         <article class="media">
-          <div class="media-left">
+          <div id="userToolTip" class="media-left">
             <figure class="image is-64x64">
               <a
                 href="{{url_for('userProfile',username=post.author.username)}}"
               >
                 <img
+                  id="profileImage"
                   class="is-rounded"
                   src="{{url_for('static',filename='images/profile_pictures/'+post.author.image_file)}}"
               /></a>
@@ -60,6 +61,7 @@
             <div class="content">
               <p>
                 <a
+                  id="user"
                   href="{{url_for('userProfile',username=post.author.username)}}"
                 >
                   <strong
@@ -161,5 +163,14 @@
     </div>
   </div>
 </section>
-
+<!-- Javascript -->
+<script>
+  const profileImage = document.getElementById("profileImage");
+  const userToolTip = document.getElementById("userToolTip");
+  const user = document.getElementById("user");
+  profileImage.addEventListener("mouseover", () => {
+    html = `Hello There`;
+    userToolTip.append(html);
+  });
+</script>
 {%endblock content%}
